@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 import ActivityForm from './components/ActivityForm'
 import ActivityFeed from './components/ActivityFeed'
@@ -17,21 +17,25 @@ function App() {
     localStorage.setItem('pathcredit_activities', JSON.stringify(activities))
   }, [activities])
 
-  function addActivity(newActivity) {
-    setActivities(prev => [newActivity, ...prev])
+  function addActivity(activity) {
+    setActivities(prev => [activity, ...prev])
   }
 
   return (
-    <div className="container">
-      <h1>PathCredit Logger</h1>
+    <div className="app-wrapper">
+      <header className="app-header">
+        <h1>Path<span>Credit</span> Logger</h1>
+        <p>Track your milestones and earn Credits</p>
+      </header>
+
       <div className="layout">
-        <div className="left-panel">
-          <h2>Log Your Activity</h2>
+        <div className="panel left-panel">
+          <p className="panel-title">Log Your Activity</p>
           <ActivityForm onAdd={addActivity} />
         </div>
 
-        <div className="right-panel">
-          <h2>Activity Feed</h2>
+        <div className="panel right-panel">
+          <p className="panel-title">Activity Feed</p>
           <ActivityFeed activities={activities} />
         </div>
       </div>

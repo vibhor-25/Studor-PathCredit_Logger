@@ -1,10 +1,11 @@
 import { useState } from 'react'
+import './ActivityForm.css'
 
 const CATEGORIES = ['Academic', 'Technical', 'Cultural', 'Sports']
 
-const today = new Date().toLocaleDateString('en-CA');
+const today = new Date().toLocaleDateString('en-CA')
 
-function ActivityForm({onAdd}) {
+function ActivityForm({ onAdd }) {
   const [name, setName] = useState('')
   const [category, setCategory] = useState(CATEGORIES[0])
   const [date, setDate] = useState(today)
@@ -33,45 +34,42 @@ function ActivityForm({onAdd}) {
   }
 
   return (
-    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '13px' }}>
-      <div>
-        <label>Activity Name</label>
+    <form className="activity-form" onSubmit={handleSubmit}>
+      <div className="form-group">
+          <label htmlFor="activity-name">Activity Name</label>
         <input
+          id="activity-name"
           type="text"
           value={name}
           onChange={e => setName(e.target.value)}
-          placeholder="e.g. CS Problems, Football Match..."
-          style={{ display: 'block', width: '100%', marginTop: '4px', padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}
+          placeholder="e.g. Solved CS Problems, Football Match...."
         />
-        {error && <p style={{ color: 'red', fontSize: '0.7rem', marginTop: '4px' }}>{error}</p>}
+        {error && <p className="form-error">{error}</p>}  {/* Edge Case */}
       </div>
 
-      <div>
-        <label>Category</label>
+      <div className="form-group">
+        <label htmlFor="category">Category</label>
         <select
+          id="category"
           value={category}
           onChange={e => setCategory(e.target.value)}
-          style={{ display: 'block', width: '100%', marginTop: '4px', padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}
         >
           {CATEGORIES.map(c => <option key={c}>{c}</option>)}
         </select>
       </div>
 
-      <div>
-        <label>Date</label>
+      <div className="form-group">
+        <label htmlFor="date">Date</label>
         <input
+          id="date"
           type="date"
           value={date}
+          max={today}
           onChange={e => setDate(e.target.value)}
-          max={today}   //To prevent picking a future date
-          style={{ display: 'block', width: '100%', marginTop: '4px', padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}
         />
       </div>
 
-      <button
-        type="submit"
-        style={{ padding: '10px', background: '#FF010E',marginTop:'16px', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}
-      >
+      <button type="submit" className="submit-btn">
         Log Activity
       </button>
     </form>
